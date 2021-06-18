@@ -1,0 +1,12 @@
+.mrg {
+  margin-left: 20px;
+}
+
+.cont {
+  display: flex;
+  height: 100vh;
+  border: 1px;
+  border-style: dashed;
+  align-items: center;
+  justify-content: center;
+}

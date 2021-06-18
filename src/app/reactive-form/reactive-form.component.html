@@ -1,0 +1,176 @@
+<main class="container">
+  <form [formGroup]="job" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name *</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="name"
+        [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+      />
+      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+        <div *ngIf="f.name.errors.required">Name is required</div>
+        <div *ngIf="f.name.errors.minlength">
+          Name should be atleast 3 characters long
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="age" class="form-label">Age</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="age"
+        [ngClass]="{ 'is-invalid': submitted && f.age.errors }"
+      />
+      <div *ngIf="submitted && f.age.errors" class="invalid-feedback">
+        <div *ngIf="f.age.errors.required">Age is required</div>
+        <div *ngIf="f.age.errors.min">Age is below 18</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Gender</label>
+      <div class="form-check radio">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="gender"
+          id="male"
+          value="male"
+          formControlName="gender"
+          [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+        />
+        <label class="form-check-label" for="male"> Male </label>
+      </div>
+
+      <div class="form-check radio">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="gender"
+          id="female"
+          value="female"
+          formControlName="gender"
+          [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+        />
+        <label class="form-check-label" for="female"> Female </label>
+      </div>
+      <div
+        *ngIf="submitted && f.gender.errors && f.gender.invalid"
+        class="invalid-feedback error"
+      >
+        <div *ngIf="f.gender.errors?.required">Gender is required</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="dob" class="form-label">Date of Birth</label>
+      <input
+        type="date"
+        class="form-control"
+        id="dob"
+        formControlName="dob"
+        [ngClass]="{ 'is-invalid': submitted && f.dob.errors }"
+      />
+      <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+        <div *ngIf="f.dob.errors.required">DOB is required</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email ID</label>
+      <input type="email" class="form-control" id="email" />
+    </div>
+
+    <div class="mb-3">
+      <label for="role" class="form-label">Role</label>
+      <select class="dropdown" id="role">
+        <option>Choose</option>
+        <option>Developer</option>
+        <option>Tester</option>
+        <option>QA</option>
+        <option>Product Owner</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="experience" class="form-label">Experience</label>
+      <input type="number" class="form-control" id="experience" />
+    </div>
+
+    <div class="mb-3">
+      <label for="prev_comp" class="form-label">Previous Company Name</label>
+      <input type="text" class="form-control" id="prev_comp" />
+    </div>
+
+    <div class="mb-3">
+      <label for="prev_comp_exp" class="form-label"
+        >Previous Company Experience</label
+      >
+      <input type="number" class="form-control" id="prev_comp_exp" />
+    </div>
+
+    <div class="mb-3">
+      <label for="resume" class="form-label">Resume</label>
+      <input
+        type="file"
+        id="myFile"
+        name="filename"
+        id="resume"
+        class="resume"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="blood" class="form-label">Blood Group</label>
+      <select class="dropdown" id="blood">
+        <option>Choose</option>
+        <option>O+</option>
+        <option>O-</option>
+        <option>A+</option>
+        <option>A-</option>
+        <option>B+</option>
+        <option>B-</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="sslc_schl" class="form-label">SSLC School Name</label>
+      <input type="text" class="form-control" id="sslc_schl" />
+    </div>
+
+    <div class="mb-3">
+      <label for="sslc_mark" class="form-label">SSLC Marks</label>
+      <input type="number" class="form-control" id="sslc_mark" />
+    </div>
+
+    <div class="mb-3">
+      <label for="sslc_prc" class="form-label">SSLC Percentage</label>
+      <input type="number" class="form-control" id="sslc_prc" />
+    </div>
+
+    <div class="mb-3">
+      <label for="sslc_mode" class="form-label">SSLC Mode</label>
+      <select class="dropdown" id="sslc_mode">
+        <option>Choose</option>
+        <option>Stateboard</option>
+        <option>CBSE</option>
+        <option>ICSE</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <!--<div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+
+       <input type="radio" value="male" formControlName="gender" />Male
+      <input type="radio" value="female" formControlName="gender" />Female
+
+    </div>-->
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</main>
