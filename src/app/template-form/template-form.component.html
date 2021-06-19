@@ -77,69 +77,166 @@
       </div>
     </div>
 
-    <!--
-<div class="mb-3">
+    <div class="mb-3">
       <label for="dob" class="form-label">Date of Birth</label>
       <input
+        id="dob"
+        name="dob"
         type="date"
         class="form-control"
-        id="dob"
-        formControlName="dob"
-        [ngClass]="{ 'is-invalid': f.submitted && f.dob.invalid }"
+        required
+        [(ngModel)]="model.dob"
+        #dob="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && dob.invalid }"
       />
-      <div *ngIf="f.submitted && f.dob.invalid" class="invalid-feedback">
-        <div *ngIf="f.dob.errors?.required">DOB is required</div>
+      <div *ngIf="f.submitted && dob.invalid" class="invalid-feedback">
+        <div *ngIf="dob.errors?.required">DOB is required</div>
       </div>
     </div>
-    
+
     <div class="mb-3">
       <label for="email" class="form-label">Email ID</label>
-      <input type="email" class="form-control" id="email" />
+      <input
+        id="email"
+        name="email"
+        type="text"
+        class="form-control"
+        email
+        required
+        [(ngModel)]="model.email"
+        #email="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+      />
+      <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+        <div *ngIf="email.errors?.required">Email is required</div>
+        <div *ngIf="email.errors?.email">Email is invalid</div>
+      </div>
     </div>
-    
+
     <div class="mb-3">
       <label for="role" class="form-label">Role</label>
-      <select class="dropdown" id="role">
-        <option>Choose</option>
+      <select
+        id="role"
+        name="role"
+        class="dropdown"
+        required
+        [(ngModel)]="model.role"
+        #role="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && role.invalid }"
+      >
         <option>Developer</option>
         <option>Tester</option>
         <option>QA</option>
         <option>Product Owner</option>
       </select>
+      <div *ngIf="f.submitted && role.invalid" class="invalid-feedback">
+        <div *ngIf="role.errors?.required">Role is required</div>
+      </div>
     </div>
-    
+
     <div class="mb-3">
       <label for="experience" class="form-label">Experience</label>
-      <input type="number" class="form-control" id="experience" />
+      <input
+        id="experience"
+        name="experience"
+        type="number"
+        class="form-control"
+        required
+        [(ngModel)]="model.experience"
+        #experience="ngModel"
+        min="2"
+        max="5"
+        [ngClass]="{ 'is-invalid': f.submitted && experience.invalid }"
+      />
+      <div *ngIf="f.submitted && experience.invalid" class="invalid-feedback">
+        <div *ngIf="experience.errors?.required">Experience is required</div>
+        <div *ngIf="experience.errors?.min">Experience is below 2 years</div>
+        <div *ngIf="experience.errors?.max">Experience is above 5 years</div>
+      </div>
     </div>
-    
+
     <div class="mb-3">
       <label for="prev_comp" class="form-label">Previous Company Name</label>
-      <input type="text" class="form-control" id="prev_comp" />
+      <input
+        id="prev_comp"
+        name="prev_comp"
+        type="text"
+        class="form-control"
+        required
+        [(ngModel)]="model.prev_comp"
+        #prev_comp="ngModel"
+        minlength="3"
+        maxlength="50"
+        [ngClass]="{ 'is-invalid': f.submitted && prev_comp.invalid }"
+      />
+      <div *ngIf="f.submitted && prev_comp.invalid" class="invalid-feedback">
+        <div *ngIf="prev_comp.errors?.required">
+          Previous Company Name is required
+        </div>
+        <div *ngIf="prev_comp.errors?.minlength">
+          Previous Company Name should be atleast 3 characters long
+        </div>
+        <div *ngIf="prev_comp.errors?.maxlength">
+          Previous Company Name exceeds 50 characters
+        </div>
+      </div>
     </div>
-    
+
     <div class="mb-3">
       <label for="prev_comp_exp" class="form-label"
         >Previous Company Experience</label
       >
-      <input type="number" class="form-control" id="prev_comp_exp" />
+      <input
+        id="prev_comp_exp"
+        name="prev_comp_exp"
+        type="number"
+        class="form-control"
+        required
+        [(ngModel)]="model.prev_comp_exp"
+        #prev_comp_exp="ngModel"
+        min="2"
+        max="5"
+        [ngClass]="{ 'is-invalid': f.submitted && prev_comp_exp.invalid }"
+      />
+      <div
+        *ngIf="f.submitted && prev_comp_exp.invalid"
+        class="invalid-feedback"
+      >
+        <div *ngIf="prev_comp_exp.errors?.required">
+          Previous Company Experience is required
+        </div>
+        <div *ngIf="prev_comp_exp.errors?.min">
+          Previous Company Experience is below 2 years
+        </div>
+        <div *ngIf="prev_comp_exp.errors?.max">
+          Previous Company Experience is above 5 years
+        </div>
+      </div>
     </div>
-    
+
     <div class="mb-3">
       <label for="resume" class="form-label">Resume</label>
       <input
-        type="file"
-        id="myFile"
-        name="filename"
         id="resume"
+        name="resume"
+        type="file"
         class="resume"
+        required
+        (change)="selectFile($event)"
       />
     </div>
-    
+
     <div class="mb-3">
       <label for="blood" class="form-label">Blood Group</label>
-      <select class="dropdown" id="blood">
-        <option>Choose</option>
+      <select
+        id="blood"
+        name="blood"
+        class="dropdown"
+        required
+        [(ngModel)]="model.blood"
+        #blood="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && blood.invalid }"
+      >
         <option>O+</option>
         <option>O-</option>
         <option>A+</option>
@@ -147,8 +244,12 @@
         <option>B+</option>
         <option>B-</option>
       </select>
+      <div *ngIf="f.submitted && blood.invalid" class="invalid-feedback">
+        <div *ngIf="blood.errors?.required">Blood Group is required</div>
+      </div>
     </div>
-    
+
+    <!--
     <div class="mb-3">
       <label for="sslc_schl" class="form-label">SSLC School Name</label>
       <input type="text" class="form-control" id="sslc_schl" />
@@ -175,15 +276,6 @@
       </select>
     </div>
 -->
-
-    <!--<div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-
-     <input type="radio" value="male" formControlName="gender" />Male
-    <input type="radio" value="female" formControlName="gender" />Female
-
-  </div>-->
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
