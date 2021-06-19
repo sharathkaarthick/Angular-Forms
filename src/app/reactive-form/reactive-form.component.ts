@@ -34,6 +34,7 @@ job!:FormGroup
         return;
     }
     console.log(this.job.controls.name.value)
+    console.log(this.job.value)
    
 }
 
