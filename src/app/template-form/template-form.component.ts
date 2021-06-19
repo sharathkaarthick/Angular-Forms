@@ -9,29 +9,30 @@ export class TemplateFormComponent implements OnInit {
 model:any={}
 resume:any
 submitted = false;
+  showAge!: number;
+  prev_exp!:number;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.prev_exp = this.model.prev_exp
   }
 
-  selectFile(event:any) {
-    this.resume = event.target.files[0];
-
-    if (this.resume.type == 'application/pdf') {
-
-    } else {
-      alert("File type should be .pdf")
-      return;
+  
+  
+  ageCalc(){
+    if(this.model.dob){
+      const convertage = new Date(this.model.dob);
+      const timeDiff = Math.abs(Date.now() - convertage.getTime());
+      this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+      this.model.age = this.showAge
+     
     }
-
   }
 
   onSubmit(){
     this.submitted=true
     console.log(this.model)
-this.selectFile(event)
-console.log(this.resume)
-
   }
 
 }

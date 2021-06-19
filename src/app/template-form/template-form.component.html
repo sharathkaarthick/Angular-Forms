@@ -21,11 +21,30 @@
     </div>
 
     <div class="mb-3">
+      <label for="dob" class="form-label">Date of Birth</label>
+      <input
+        id="dob"
+        name="dob"
+        type="date"
+        class="form-control"
+        (change)="ageCalc()"
+        required
+        [(ngModel)]="model.dob"
+        #dob="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && dob.invalid }"
+      />
+      <div *ngIf="f.submitted && dob.invalid" class="invalid-feedback">
+        <div *ngIf="dob.errors?.required">DOB is required</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
       <label for="age" class="form-label">Age</label>
       <input
         name="age"
         type="number"
         class="form-control"
+        value="{{ showAge }}"
         required
         [(ngModel)]="model.age"
         #age="ngModel"
@@ -74,23 +93,6 @@
         class="invalid-feedback error"
       >
         <div *ngIf="gender.errors?.required">Gender is required</div>
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <label for="dob" class="form-label">Date of Birth</label>
-      <input
-        id="dob"
-        name="dob"
-        type="date"
-        class="form-control"
-        required
-        [(ngModel)]="model.dob"
-        #dob="ngModel"
-        [ngClass]="{ 'is-invalid': f.submitted && dob.invalid }"
-      />
-      <div *ngIf="f.submitted && dob.invalid" class="invalid-feedback">
-        <div *ngIf="dob.errors?.required">DOB is required</div>
       </div>
     </div>
 
@@ -216,14 +218,7 @@
 
     <div class="mb-3">
       <label for="resume" class="form-label">Resume</label>
-      <input
-        id="resume"
-        name="resume"
-        type="file"
-        class="resume"
-        required
-        (change)="selectFile($event)"
-      />
+      <input id="resume" name="resume" type="file" class="resume" required />
     </div>
 
     <div class="mb-3">

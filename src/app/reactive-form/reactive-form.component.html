@@ -1,8 +1,10 @@
 <main class="container">
   <form [formGroup]="job" (ngSubmit)="onSubmit()">
+    <!--
     <div class="mb-3">
       <label for="name" class="form-label">Name *</label>
       <input
+        id="name"
         type="text"
         class="form-control"
         formControlName="name"
@@ -17,8 +19,25 @@
     </div>
 
     <div class="mb-3">
+      <label for="dob" class="form-label">Date of Birth</label>
+      <input
+        id="dob"
+        type="date"
+        class="form-control"
+        [(ngModel)]="birth"
+        (change)="ageCalc()"
+        formControlName="dob"
+        [ngClass]="{ 'is-invalid': submitted && f.dob.errors }"
+      />
+      <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+        <div *ngIf="f.dob.errors.required">DOB is required</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
       <label for="age" class="form-label">Age</label>
       <input
+        id="age"
         type="number"
         class="form-control"
         formControlName="age"
@@ -34,11 +53,11 @@
       <label class="form-label">Gender</label>
       <div class="form-check radio">
         <input
-          class="form-check-input"
-          type="radio"
-          name="gender"
           id="male"
+          name="gender"
           value="male"
+          type="radio"
+          class="form-check-input"
           formControlName="gender"
           [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
         />
@@ -47,11 +66,11 @@
 
       <div class="form-check radio">
         <input
-          class="form-check-input"
-          type="radio"
-          name="gender"
           id="female"
+          name="gender"
           value="female"
+          type="radio"
+          class="form-check-input"
           formControlName="gender"
           [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
         />
@@ -66,67 +85,115 @@
     </div>
 
     <div class="mb-3">
-      <label for="dob" class="form-label">Date of Birth</label>
+      <label for="email" class="form-label">Email ID</label>
       <input
-        type="date"
+        id="email"
+        type="email"
         class="form-control"
-        id="dob"
-        formControlName="dob"
-        [ngClass]="{ 'is-invalid': submitted && f.dob.errors }"
+        formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
       />
-      <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
-        <div *ngIf="f.dob.errors.required">DOB is required</div>
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">Email is required</div>
+        <div *ngIf="f.email.errors.email">Invalid Email</div>
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="email" class="form-label">Email ID</label>
-      <input type="email" class="form-control" id="email" />
-    </div>
-
-    <div class="mb-3">
       <label for="role" class="form-label">Role</label>
-      <select class="dropdown" id="role">
-        <option>Choose</option>
+      <select
+        id="role"
+        class="dropdown"
+        formControlName="role"
+        [ngClass]="{ 'is-invalid': submitted && f.role.errors }"
+      >
         <option>Developer</option>
         <option>Tester</option>
         <option>QA</option>
         <option>Product Owner</option>
       </select>
+      <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+        <div *ngIf="f.role.errors.required">Role is required</div>
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="experience" class="form-label">Experience</label>
-      <input type="number" class="form-control" id="experience" />
+      <input
+        id="experience"
+        type="number"
+        class="form-control"
+        formControlName="experience"
+        [ngClass]="{ 'is-invalid': submitted && f.experience.errors }"
+      />
+      <div *ngIf="submitted && f.experience.errors" class="invalid-feedback">
+        <div *ngIf="f.experience.errors.required">Experience is required</div>
+        <div *ngIf="f.experience.errors.min">
+          Experience is less than 2 years
+        </div>
+        <div *ngIf="f.experience.errors.max">
+          Experience is more than 5 years
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="prev_comp" class="form-label">Previous Company Name</label>
-      <input type="text" class="form-control" id="prev_comp" />
+      <input
+        id="prev_comp"
+        type="text"
+        class="form-control"
+        [(ngModel)]="prev_exp"
+        formControlName="prev_comp"
+        [ngClass]="{ 'is-invalid': submitted && f.prev_comp.errors }"
+      />
+      <div *ngIf="submitted && f.prev_comp.errors" class="invalid-feedback">
+        <div *ngIf="f.prev_comp.errors.required">
+          Previous Company Name is required
+        </div>
+        <div *ngIf="f.prev_comp.errors.minlength">
+          Previous Company Name should be atleast 3 characters long
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="prev_comp_exp" class="form-label"
         >Previous Company Experience</label
       >
-      <input type="number" class="form-control" id="prev_comp_exp" />
+      <input
+        type="number"
+        class="form-control"
+        id="prev_comp_exp"
+        formControlName="prev_comp_exp"
+        [ngClass]="{ 'is-invalid': submitted && f.prev_comp_exp.errors }"
+      />
+      <div *ngIf="submitted && f.prev_comp_exp.errors" class="invalid-feedback">
+        <div *ngIf="f.prev_comp_exp.errors.required">
+          Previous Company Experience is required
+        </div>
+        <div *ngIf="f.prev_comp_exp.errors.min">
+          Previous Company Experience is less than 2 years
+        </div>
+        <div *ngIf="f.prev_comp_exp.errors.max">
+          Previous Company Experience is more than your experience
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="resume" class="form-label">Resume</label>
-      <input
-        type="file"
-        id="myFile"
-        name="filename"
-        id="resume"
-        class="resume"
-      />
+      <input type="file" name="filename" id="resume" class="resume" />
     </div>
 
     <div class="mb-3">
       <label for="blood" class="form-label">Blood Group</label>
-      <select class="dropdown" id="blood">
-        <option>Choose</option>
+      <select
+        id="blood"
+        class="dropdown"
+        formControlName="blood"
+        [ngClass]="{ 'is-invalid': submitted && f.blood.errors }"
+      >
         <option>O+</option>
         <option>O-</option>
         <option>A+</option>
@@ -134,27 +201,78 @@
         <option>B+</option>
         <option>B-</option>
       </select>
+      <div *ngIf="submitted && f.blood.errors" class="invalid-feedback">
+        <div *ngIf="f.blood.errors.required">Blood Group is required</div>
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="sslc_schl" class="form-label">SSLC School Name</label>
-      <input type="text" class="form-control" id="sslc_schl" />
+      <input
+        id="sslc_schl"
+        type="text"
+        class="form-control"
+        formControlName="sslc_schl"
+        [ngClass]="{ 'is-invalid': submitted && f.sslc_schl.errors }"
+      />
+      <div *ngIf="submitted && f.sslc_schl.errors" class="invalid-feedback">
+        <div *ngIf="f.sslc_schl.errors.required">
+          SSLC School Name is required
+        </div>
+        <div *ngIf="f.sslc_schl.errors.minlength">
+          SSLC School Name should be atleast 3 characters long
+        </div>
+      </div>
     </div>
-
+    -->
     <div class="mb-3">
       <label for="sslc_mark" class="form-label">SSLC Marks</label>
-      <input type="number" class="form-control" id="sslc_mark" />
+      <input
+        id="sslc_mark"
+        type="number"
+        class="form-control"
+        [(ngModel)]="sslc_mrk"
+        (change)="sslcPercent()"
+        formControlName="sslc_mark"
+        [ngClass]="{ 'is-invalid': submitted && f.sslc_mark.errors }"
+      />
+      <div *ngIf="submitted && f.sslc_mark.errors" class="invalid-feedback">
+        <div *ngIf="f.sslc_mark.errors.required">SSLC Marks is required</div>
+        <div *ngIf="f.sslc_mark.errors.min">
+          SSLC Marks is below the minimum marks
+        </div>
+        <div *ngIf="f.sslc_mark.errors.max">
+          SSLC Marks is above the maximum marks
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="sslc_prc" class="form-label">SSLC Percentage</label>
-      <input type="number" class="form-control" id="sslc_prc" />
+      <input
+        id="sslc_prc"
+        type="number"
+        class="form-control"
+        formControlName="sslc_prc"
+        [ngClass]="{ 'is-invalid': submitted && f.sslc_prc.errors }"
+      />
+      <div *ngIf="submitted && f.sslc_prc.errors" class="invalid-feedback">
+        <div *ngIf="f.sslc_prc.errors.required">
+          SSLC Percentage is required
+        </div>
+        <div *ngIf="f.sslc_prc.errors.min">
+          SSLC Percentage is below the minimum percentage
+        </div>
+        <div *ngIf="f.sslc_prc.errors.max">
+          SSLC Percentage is above the maximum percentage
+        </div>
+      </div>
     </div>
 
+    <!--
     <div class="mb-3">
       <label for="sslc_mode" class="form-label">SSLC Mode</label>
       <select class="dropdown" id="sslc_mode">
-        <option>Choose</option>
         <option>Stateboard</option>
         <option>CBSE</option>
         <option>ICSE</option>
@@ -162,14 +280,8 @@
       </select>
     </div>
 
-    <!--<div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
 
-       <input type="radio" value="male" formControlName="gender" />Male
-      <input type="radio" value="female" formControlName="gender" />Female
-
-    </div>-->
+    -->
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
