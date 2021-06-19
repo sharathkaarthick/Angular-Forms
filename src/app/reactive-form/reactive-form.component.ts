@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive-form',
@@ -18,6 +18,9 @@ job!:FormGroup
   sslc_mrk!:number
   sslc_pc!:number;
 
+  hslc_mrk!:number
+  hslc_pc!:number;
+
   constructor(private formbuilder:FormBuilder) { }
   
   get f() { return this.job.controls; }
@@ -28,15 +31,20 @@ job!:FormGroup
       dob:[null,Validators.required],
       age:[this.showAge, [Validators.min(18)]],
       gender:[null, [Validators.required]],
-      email:[null, [Validators.required, Validators.email]],
+      email:[null, [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{6,}@[a-zA-Z.-]{3,}[.]{1}[a-zA-Z]{2,}")]],
       role:[null, Validators.required],
-      experience:[null, [Validators.required,Validators.min(2), Validators.max(this.prev_exp)]],
+      experience:['', [Validators.required,Validators.min(2), Validators.max(5)]],
       prev_comp:['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      prev_comp_exp:[null, [Validators.required,Validators.min(2), Validators.max(5)]],
+      prev_comp_exp:['', [Validators.required,Validators.min(2), (control: AbstractControl) => Validators.max(this.prev_exp)(control)]],
       blood:[null, Validators.required],
       sslc_schl:['', [Validators.required, Validators.minLength(3)]],
-      sslc_mark:['', [Validators.min(175), Validators.max(500)]],
+      sslc_mark:['', [Validators.required,Validators.min(175), Validators.max(500)]],
       sslc_prc:[this.sslc_pc, [Validators.min(35), Validators.max(100)]],
+      sslc_mode:[null, Validators.required],
+      hslc_schl:['', [Validators.required, Validators.minLength(3)]],
+      hslc_mark:['', [Validators.required,Validators.min(420), Validators.max(1200)]],
+      hslc_prc:[this.hslc_pc, [Validators.min(35), Validators.max(100)]],
+      hslc_mode:[null, Validators.required],
     })
   }
 
@@ -56,6 +64,13 @@ job!:FormGroup
     }
   }
 
+  hslcPercent(){
+    if(this.hslc_mrk){
+      this.hslc_pc = Math.round((this.hslc_mrk/1200)*100)
+      this.job.controls.hslc_prc.setValue(this.hslc_pc)
+    }
+  }
+
   onSubmit() {
     this.submitted = true;
 
@@ -63,7 +78,6 @@ job!:FormGroup
     if (this.job.invalid) {
         return;
     }
-   
     console.log(this.job.value)
 }
 

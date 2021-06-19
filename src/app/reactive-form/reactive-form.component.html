@@ -1,6 +1,5 @@
 <main class="container">
   <form [formGroup]="job" (ngSubmit)="onSubmit()">
-    <!--
     <div class="mb-3">
       <label for="name" class="form-label">Name *</label>
       <input
@@ -95,7 +94,7 @@
       />
       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
         <div *ngIf="f.email.errors.required">Email is required</div>
-        <div *ngIf="f.email.errors.email">Invalid Email</div>
+        <div *ngIf="f.email.errors.pattern">Invalid Email</div>
       </div>
     </div>
 
@@ -124,6 +123,7 @@
         type="number"
         class="form-control"
         formControlName="experience"
+        [(ngModel)]="prev_exp"
         [ngClass]="{ 'is-invalid': submitted && f.experience.errors }"
       />
       <div *ngIf="submitted && f.experience.errors" class="invalid-feedback">
@@ -143,7 +143,6 @@
         id="prev_comp"
         type="text"
         class="form-control"
-        [(ngModel)]="prev_exp"
         formControlName="prev_comp"
         [ngClass]="{ 'is-invalid': submitted && f.prev_comp.errors }"
       />
@@ -224,7 +223,7 @@
         </div>
       </div>
     </div>
-    -->
+
     <div class="mb-3">
       <label for="sslc_mark" class="form-label">SSLC Marks</label>
       <input
@@ -269,19 +268,104 @@
       </div>
     </div>
 
-    <!--
     <div class="mb-3">
       <label for="sslc_mode" class="form-label">SSLC Mode</label>
-      <select class="dropdown" id="sslc_mode">
+      <select
+        class="dropdown"
+        id="sslc_mode"
+        formControlName="sslc_mode"
+        [ngClass]="{ 'is-invalid': submitted && f.sslc_mode.errors }"
+      >
         <option>Stateboard</option>
         <option>CBSE</option>
         <option>ICSE</option>
         <option>Other</option>
       </select>
+      <div *ngIf="submitted && f.sslc_mode.errors" class="invalid-feedback">
+        <div *ngIf="f.sslc_mode.errors.required">SSLC Mode is required</div>
+      </div>
     </div>
 
+    <div class="mb-3">
+      <label for="sslc_schl" class="form-label">HSLC School Name</label>
+      <input
+        id="hslc_schl"
+        type="text"
+        class="form-control"
+        formControlName="hslc_schl"
+        [ngClass]="{ 'is-invalid': submitted && f.hslc_schl.errors }"
+      />
+      <div *ngIf="submitted && f.hslc_schl.errors" class="invalid-feedback">
+        <div *ngIf="f.hslc_schl.errors.required">
+          HSLC School Name is required
+        </div>
+        <div *ngIf="f.hslc_schl.errors.minlength">
+          HSLC School Name should be atleast 3 characters long
+        </div>
+      </div>
+    </div>
 
-    -->
+    <div class="mb-3">
+      <label for="hslc_mark" class="form-label">HSLC Marks</label>
+      <input
+        id="hslc_mark"
+        type="number"
+        class="form-control"
+        [(ngModel)]="hslc_mrk"
+        (change)="hslcPercent()"
+        formControlName="hslc_mark"
+        [ngClass]="{ 'is-invalid': submitted && f.hslc_mark.errors }"
+      />
+      <div *ngIf="submitted && f.hslc_mark.errors" class="invalid-feedback">
+        <div *ngIf="f.hslc_mark.errors.required">HSLC Marks is required</div>
+        <div *ngIf="f.hslc_mark.errors.min">
+          HSLC Marks is below the minimum marks
+        </div>
+        <div *ngIf="f.hslc_mark.errors.max">
+          HSLC Marks is above the maximum marks
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="hslc_prc" class="form-label">HSLC Percentage</label>
+      <input
+        id="hslc_prc"
+        type="number"
+        class="form-control"
+        formControlName="hslc_prc"
+        [ngClass]="{ 'is-invalid': submitted && f.hslc_prc.errors }"
+      />
+      <div *ngIf="submitted && f.hslc_prc.errors" class="invalid-feedback">
+        <div *ngIf="f.hslc_prc.errors.required">
+          HSLC Percentage is required
+        </div>
+        <div *ngIf="f.hslc_prc.errors.min">
+          HSLC Percentage is below the minimum percentage
+        </div>
+        <div *ngIf="f.hslc_prc.errors.max">
+          HSLC Percentage is above the maximum percentage
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="hslc_mode" class="form-label">HSLC Mode</label>
+      <select
+        class="dropdown"
+        id="hslc_mode"
+        formControlName="hslc_mode"
+        [ngClass]="{ 'is-invalid': submitted && f.hslc_mode.errors }"
+      >
+        <option>Stateboard</option>
+        <option>CBSE</option>
+        <option>ICSE</option>
+        <option>Other</option>
+      </select>
+      <div *ngIf="submitted && f.hslc_mode.errors" class="invalid-feedback">
+        <div *ngIf="f.hslc_mode.errors.required">HSLC Mode is required</div>
+      </div>
+    </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
