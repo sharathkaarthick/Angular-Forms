@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+
+import { FormSubmitService } from '../form-submit.service';
+
+interface FileUpload {
+  fileId: number;
+  fileName: string;
+}
 
 @Component({
   selector: 'app-reactive-form',
@@ -21,7 +28,11 @@ job!:FormGroup
   hslc_mrk!:number
   hslc_pc!:number;
 
-  constructor(private formbuilder:FormBuilder) { }
+  files!: FileUpload[];
+
+  constructor(private formbuilder:FormBuilder, private form_submit:FormSubmitService) { 
+    
+  }
   
   get f() { return this.job.controls; }
 
@@ -29,13 +40,14 @@ job!:FormGroup
     this.job = this.formbuilder.group({
       name:['', [Validators.required, Validators.minLength(3)]],
       dob:[null,Validators.required],
-      age:[this.showAge, [Validators.min(18)]],
+      age:[this.showAge, [Validators.min(18), Validators.max(30)]],
       gender:[null, [Validators.required]],
       email:[null, [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{6,}@[a-zA-Z.-]{3,}[.]{1}[a-zA-Z]{2,}")]],
       role:[null, Validators.required],
       experience:['', [Validators.required,Validators.min(2), Validators.max(5)]],
       prev_comp:['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       prev_comp_exp:['', [Validators.required,Validators.min(2), (control: AbstractControl) => Validators.max(this.prev_exp)(control)]],
+      resume:['', Validators.required],
       blood:[null, Validators.required],
       sslc_schl:['', [Validators.required, Validators.minLength(3)]],
       sslc_mark:['', [Validators.required,Validators.min(175), Validators.max(500)]],
@@ -71,6 +83,18 @@ job!:FormGroup
     }
   }
 
+  onFileSelect(event:any) {
+    let f = event.target.files[0];
+    let newFile: FileUpload = {
+      fileId: 1,
+      fileName: f.name
+    }
+    if (!this.files) {
+      this.files = new Array();
+    }
+    this.files.push(newFile);
+  }
+
   onSubmit() {
     this.submitted = true;
 
@@ -78,7 +102,7 @@ job!:FormGroup
     if (this.job.invalid) {
         return;
     }
-    console.log(this.job.value)
+    this.form_submit.setData(this.job.value)
 }
 
 

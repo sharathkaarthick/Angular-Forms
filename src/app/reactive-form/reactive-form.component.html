@@ -182,7 +182,17 @@
 
     <div class="mb-3">
       <label for="resume" class="form-label">Resume</label>
-      <input type="file" name="filename" id="resume" class="resume" />
+      <input
+        id="resume"
+        type="file"
+        class="resume"
+        (change)="onFileSelect($event)"
+        formControlName="resume"
+        [ngClass]="{ 'is-invalid': submitted && f.resume.errors }"
+      />
+      <div *ngIf="submitted && f.resume.errors" class="invalid-feedback">
+        <div *ngIf="f.resume.errors.required">Resume is required</div>
+      </div>
     </div>
 
     <div class="mb-3">

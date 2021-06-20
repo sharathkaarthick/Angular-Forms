@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     ReactiveFormComponent,
     TemplateFormComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
  

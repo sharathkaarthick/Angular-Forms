@@ -218,7 +218,20 @@
 
     <div class="mb-3">
       <label for="resume" class="form-label">Resume</label>
-      <input id="resume" name="resume" type="file" class="resume" required />
+      <input
+        id="resume"
+        name="resume"
+        type="file"
+        class="resume"
+        required
+        (change)="onFileSelect($event)"
+        [(ngModel)]="model.resume"
+        #resume="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && resume.invalid }"
+      />
+      <div *ngIf="f.submitted && resume.invalid" class="invalid-feedback">
+        <div *ngIf="resume.errors?.required">Resume is required</div>
+      </div>
     </div>
 
     <div class="mb-3">
@@ -244,33 +257,195 @@
       </div>
     </div>
 
-    <!--
     <div class="mb-3">
       <label for="sslc_schl" class="form-label">SSLC School Name</label>
-      <input type="text" class="form-control" id="sslc_schl" />
+      <input
+        id="sslc_schl"
+        name="sslc_schl"
+        type="text"
+        class="form-control"
+        required
+        minlength="3"
+        [(ngModel)]="model.sslc_schl"
+        #sslc_schl="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && sslc_schl.invalid }"
+      />
+      <div *ngIf="f.submitted && sslc_schl.errors" class="invalid-feedback">
+        <div *ngIf="sslc_schl.errors?.required">
+          SSLC School Name is required
+        </div>
+        <div *ngIf="sslc_schl.errors?.minlength">
+          SSLC School Name should be atleast 3 characters long
+        </div>
+      </div>
     </div>
-    
+
     <div class="mb-3">
       <label for="sslc_mark" class="form-label">SSLC Marks</label>
-      <input type="number" class="form-control" id="sslc_mark" />
+      <input
+        id="sslc_mark"
+        name="sslc_mark"
+        type="number"
+        class="form-control"
+        required
+        min="175"
+        max="500"
+        (change)="sslcPercent()"
+        [(ngModel)]="model.sslc_mark"
+        #sslc_mark="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && sslc_mark.invalid }"
+      />
+      <div *ngIf="f.submitted && sslc_mark.invalid" class="invalid-feedback">
+        <div *ngIf="sslc_mark.errors?.required">SSLC Marks is required</div>
+        <div *ngIf="sslc_mark.errors?.min">
+          SSLC Marks is below the minimum marks
+        </div>
+        <div *ngIf="sslc_mark.errors?.max">
+          SSLC Marks is above the maximum marks
+        </div>
+      </div>
     </div>
-    
+
     <div class="mb-3">
       <label for="sslc_prc" class="form-label">SSLC Percentage</label>
-      <input type="number" class="form-control" id="sslc_prc" />
+      <input
+        id="sslc_prc"
+        name="sslc_prc"
+        type="number"
+        class="form-control"
+        required
+        min="35"
+        max="100"
+        [(ngModel)]="model.sslc_prc"
+        #sslc_prc="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && sslc_prc.invalid }"
+      />
+      <div *ngIf="submitted && sslc_prc.invalid" class="invalid-feedback">
+        <div *ngIf="sslc_prc.errors?.required">SSLC Percentage is required</div>
+        <div *ngIf="sslc_prc.errors?.min">
+          SSLC Percentage is below the minimum percentage
+        </div>
+        <div *ngIf="sslc_prc.errors?.max">
+          SSLC Percentage is above the maximum percentage
+        </div>
+      </div>
     </div>
-    
+
     <div class="mb-3">
       <label for="sslc_mode" class="form-label">SSLC Mode</label>
-      <select class="dropdown" id="sslc_mode">
-        <option>Choose</option>
+      <select
+        id="sslc_mode"
+        name="sslc_mode"
+        class="dropdown"
+        required
+        [(ngModel)]="model.sslc_mode"
+        #sslc_mode="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && sslc_mode.invalid }"
+      >
         <option>Stateboard</option>
         <option>CBSE</option>
         <option>ICSE</option>
         <option>Other</option>
       </select>
+      <div *ngIf="f.submitted && sslc_mode.invalid" class="invalid-feedback">
+        <div *ngIf="sslc_mode.errors?.required">SSLC Mode is required</div>
+      </div>
     </div>
--->
+
+    <div class="mb-3">
+      <label for="hslc_schl" class="form-label">HSLC School Name</label>
+      <input
+        id="hslc_schl"
+        name="hslc_schl"
+        type="text"
+        class="form-control"
+        required
+        minlength="3"
+        [(ngModel)]="model.hslc_schl"
+        #hslc_schl="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && hslc_schl.invalid }"
+      />
+      <div *ngIf="f.submitted && hslc_schl.errors" class="invalid-feedback">
+        <div *ngIf="hslc_schl.errors?.required">
+          HSLC School Name is required
+        </div>
+        <div *ngIf="hslc_schl.errors?.minlength">
+          HSLC School Name should be atleast 3 characters long
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="hslc_mark" class="form-label">HSLC Marks</label>
+      <input
+        id="hslc_mark"
+        name="hslc_mark"
+        type="number"
+        class="form-control"
+        required
+        min="420"
+        max="1200"
+        (change)="hslcPercent()"
+        [(ngModel)]="model.hslc_mark"
+        #hslc_mark="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && hslc_mark.invalid }"
+      />
+      <div *ngIf="f.submitted && hslc_mark.invalid" class="invalid-feedback">
+        <div *ngIf="hslc_mark.errors?.required">HSLC Marks is required</div>
+        <div *ngIf="hslc_mark.errors?.min">
+          HSLC Marks is below the minimum marks
+        </div>
+        <div *ngIf="hslc_mark.errors?.max">
+          HSLC Marks is above the maximum marks
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="hslc_prc" class="form-label">HSLC Percentage</label>
+      <input
+        id="hslc_prc"
+        name="hslc_prc"
+        type="number"
+        class="form-control"
+        required
+        min="35"
+        max="100"
+        [(ngModel)]="model.hslc_prc"
+        #hslc_prc="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && hslc_prc.invalid }"
+      />
+      <div *ngIf="submitted && hslc_prc.invalid" class="invalid-feedback">
+        <div *ngIf="hslc_prc.errors?.required">HSLC Percentage is required</div>
+        <div *ngIf="hslc_prc.errors?.min">
+          HSLC Percentage is below the minimum percentage
+        </div>
+        <div *ngIf="hslc_prc.errors?.max">
+          HSLC Percentage is above the maximum percentage
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="hslc_mode" class="form-label">HSLC Mode</label>
+      <select
+        id="hslc_mode"
+        name="hslc_mode"
+        class="dropdown"
+        required
+        [(ngModel)]="model.hslc_mode"
+        #hslc_mode="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && hslc_mode.invalid }"
+      >
+        <option>Stateboard</option>
+        <option>CBSE</option>
+        <option>ICSE</option>
+        <option>Other</option>
+      </select>
+      <div *ngIf="f.submitted && hslc_mode.invalid" class="invalid-feedback">
+        <div *ngIf="hslc_mode.errors?.required">HSLC Mode is required</div>
+      </div>
+    </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
