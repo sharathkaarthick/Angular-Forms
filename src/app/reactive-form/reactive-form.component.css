@@ -6,7 +6,8 @@
 .dropdown {
   width: 160px;
   height: 30px;
-  margin-left: 30px;
+  margin-top: 5px;
+  display: block;
 }
 
 .resume {
@@ -18,9 +19,27 @@
 }
 
 .container {
-  border-style: dashed;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .error {
   display: inline-block;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit {
+  margin-right: 5px;
+  margin-bottom: 20px;
+  width: 90px;
+}
+.reset {
+  margin-left: 5px;
+  margin-bottom: 20px;
+  width: 90px;
 }

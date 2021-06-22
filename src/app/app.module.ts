@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { TemplateFormComponent } from './template-form/template-form.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,13 +16,16 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormComponent,
     TemplateFormComponent,
     HomeComponent,
+    LoginComponent,
+
   ],
   imports: [
  
   BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClient,
   ],
   providers: [],
   bootstrap: [AppComponent]

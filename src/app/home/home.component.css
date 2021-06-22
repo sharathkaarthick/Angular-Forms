@@ -6,7 +6,17 @@
   display: flex;
   height: 100vh;
   border: 1px;
-  border-style: dashed;
   align-items: center;
   justify-content: center;
+}
+
+.login {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.text {
+  text-align: center;
 }

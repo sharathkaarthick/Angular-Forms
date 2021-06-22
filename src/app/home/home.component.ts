@@ -24,4 +24,9 @@ export class HomeComponent implements OnInit {
     this.route.navigateByUrl('template-form')
   }
 
+  onclickLogin()
+  {
+    this.route.navigateByUrl('login')
+  }
+
 }

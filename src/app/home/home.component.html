@@ -1,9 +1,36 @@
+<div class="login">
+  <button (click)="onclickLogin()" class="btn btn-outline-success">
+    Login
+  </button>
+</div>
 <main class="cont">
-  <button (click)="onclickReactive()" class="btn btn-primary mrg">
-    Reactive form
-  </button>
+  <div class="card" style="width: 18rem; margin: 20px">
+    <img
+      src="../../assets/Angular_full_color_logo.svg.png"
+      class="card-img-top"
+      alt="..."
+    />
+    <div class="card-body text">
+      <h5 class="card-title">Reactive Form</h5>
 
-  <button (click)="onclickTemplate()" class="btn btn-info mrg">
-    Template form
-  </button>
+      <button (click)="onclickReactive()" class="btn btn-primary">
+        Reactive form
+      </button>
+    </div>
+  </div>
+
+  <div class="card" style="width: 18rem">
+    <img
+      src="../../assets/Angular_full_color_logo.svg.png"
+      class="card-img-top"
+      alt="..."
+    />
+    <div class="card-body text">
+      <h5 class="card-title">Template Driven Form</h5>
+
+      <button (click)="onclickTemplate()" class="btn btn-info mrg">
+        Template form
+      </button>
+    </div>
+  </div>
 </main>

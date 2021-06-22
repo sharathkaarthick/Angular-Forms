@@ -1,0 +1,25 @@
+.cont {
+  display: flex;
+  height: 100vh;
+  border: 1px;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  text-align: center;
+}
+
+.card {
+  width: 25rem;
+  height: 30rem;
+  margin: 20px;
+}
+
+.form {
+  margin-top: 20px;
+}
+
+.card-title {
+  font-weight: bold;
+}
