@@ -8,7 +8,9 @@ import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { TemplateFormComponent } from './template-form/template-form.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './services/jwt.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -20,14 +22,15 @@ import { HttpClient } from '@angular/common/http';
 
   ],
   imports: [
- 
-  BrowserModule,
+
+
+    BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClient,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
