@@ -29,7 +29,7 @@ import { TokenInterceptor } from './services/token.interceptor';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AuthGuard, ],
+  providers: [AuthGuard,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
