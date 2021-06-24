@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 import { FormSubmitService } from '../form-submit.service';
+import { Router } from '@angular/router';
 
 interface FileUpload {
   fileId: number;
@@ -30,7 +31,7 @@ job!:FormGroup
 
   files!: FileUpload[];
 
-  constructor(private formbuilder:FormBuilder, private form_submit:FormSubmitService) { 
+  constructor(private formbuilder:FormBuilder, private form_submit:FormSubmitService, private router:Router) { 
     
   }
   
@@ -103,6 +104,8 @@ job!:FormGroup
         return;
     }
     this.form_submit.setData(this.job.value)
+    alert("Form Submitted !")
+    this.router.navigate(['/home'])
 }
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { FormSubmitService } from '../form-submit.service';
 
@@ -22,7 +23,7 @@ submitted = false;
  
   files!: FileUpload[];
 
-  constructor( private form_submit:FormSubmitService) { }
+  constructor( private form_submit:FormSubmitService, private router:Router) { }
 
   ngOnInit(): void {
     this.prev_exp = this.model.prev_exp
@@ -72,6 +73,8 @@ submitted = false;
     this.submitted=true
     console.log(this.model)
     this.form_submit.setData(this.model)
+    alert("Form Submitted !")
+    this.router.navigate(['/home'])
   }
 
 }

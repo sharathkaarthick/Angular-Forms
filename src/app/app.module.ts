@@ -9,7 +9,8 @@ import { TemplateFormComponent } from './template-form/template-form.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtInterceptor } from './services/jwt.interceptor';
+import { AuthGuard } from './services/auth.guard';
+import { TokenInterceptor } from './services/token.interceptor';
 
 
 @NgModule({
@@ -22,15 +23,13 @@ import { JwtInterceptor } from './services/jwt.interceptor';
 
   ],
   imports: [
-
-
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  providers: [AuthGuard, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

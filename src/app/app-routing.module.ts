@@ -9,11 +9,12 @@ import { AuthGuard } from './services/auth.guard';
 import { TemplateFormComponent } from './template-form/template-form.component';
 
 const routes: Routes = [
-  { path: "", component: HomeComponent, canActivate:[AuthGuard]},
-  { path: "login", component: LoginComponent, },
-  { path: "reactive-form", component: ReactiveFormComponent, },
-  { path: "template-form", component: TemplateFormComponent,},
-  { path: '**', redirectTo: '' }
+  { path: "", redirectTo:'home', pathMatch:'full'},
+  { path: "home", component: HomeComponent, canActivate:[AuthGuard] },
+  { path: "login", component: LoginComponent },
+  { path: "reactive-form", component: ReactiveFormComponent, canActivate:[AuthGuard] },
+  { path: "template-form", component: TemplateFormComponent, canActivate:[AuthGuard]},
+  { path: '**', redirectTo: "home" }
 
 ];
 

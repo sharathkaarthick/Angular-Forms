@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map} from 'rxjs/operators';
 import { environment } from '../environments/environment';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 
@@ -9,12 +10,12 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  currentUserSubject: any;
-
+  private currentUserSubject:BehaviorSubject<any>;
 
   constructor(private httpClient:HttpClient) {
-   this.currentUserSubject = JSON.parse(localStorage.getItem('currentUser') || '{}')
-   }
+    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser') || '{}'))
+
+  }
 
    public get currentUserValue() {
     return this.currentUserSubject.value;
@@ -22,20 +23,19 @@ export class AuthService {
   
   
   login(identifier:string, password:string) {
-    return this.httpClient.post(`${environment.apiUrl}/auth/local`, {identifier, password}).pipe(map(data => {
-      localStorage.setItem('currentUser', JSON.stringify(data));
-      
-      
-      
-      return true;
-  }))
+    return this.httpClient.post<any>(`${environment.apiUrl}/auth/local`, {identifier, password})
 }
 
-logout() {
-  localStorage.removeItem('access_token');
+loggedIn(){
+  return !!localStorage.getItem('token')
 }
 
-public get loggedIn(): boolean{
-  return localStorage.getItem('access_token') !==  null;
+logout(){
+  localStorage.removeItem('token')
 }
+
+getToken(){
+  localStorage.getItem('token')
+}
+
 }

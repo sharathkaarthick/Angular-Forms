@@ -36,13 +36,17 @@ export class LoginComponent implements OnInit {
       return;
     }
     console.log(this.login.value)
-    this.authservice.login(this.f.username.value, this.f.password.value).subscribe(result =>{
+    
+    this.authservice.login(this.f.username.value, this.f.password.value)
+    .subscribe(result =>{
       if(result){
         console.log(result)
-        alert('success')
+        localStorage.setItem('token', result.jwt)
+        this.router.navigate(['/home'])
       }
       else{
         alert('invalid')
+        this.router.navigate(['/login'])
       }
     })
 
